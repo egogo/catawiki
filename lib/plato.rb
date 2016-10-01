@@ -1,0 +1,3 @@
+class Plato
+
+end
