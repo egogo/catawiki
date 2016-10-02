@@ -5,12 +5,6 @@ describe Plateau do
 
 
   describe 'initialization' do
-    describe 'for coords, that will create non-square plateau' do
-      it 'raises an error' do
-        err = -> { described_class.new(8,4) }.must_raise ArgumentError
-        err.message.must_equal "Max X and Y must be equal"
-      end
-    end
 
     describe 'for coords, that will create zero-size plateau' do
       it 'raises an error' do
@@ -19,15 +13,29 @@ describe Plateau do
       end
     end
 
-    describe 'for coords, that will create square plateau' do
+    describe 'for coords, that will create zero-width plateau' do
+      it 'raises an error' do
+        err = -> { described_class.new(0,4) }.must_raise ArgumentError
+        err.message.must_equal "Max X and Y must be greater than zero"
+      end
+    end
+
+    describe 'for coords, that will create zero-height plateau' do
+      it 'raises an error' do
+        err = -> { described_class.new(3,0) }.must_raise ArgumentError
+        err.message.must_equal "Max X and Y must be greater than zero"
+      end
+    end
+
+    describe 'for coords, that will create >=1 x >=1 plateau' do
       it 'sets plateau size' do
-        instance = described_class.new(8,8)
+        instance = described_class.new(8,4)
 
         instance.min_x.must_equal 0
         instance.min_y.must_equal 0
 
         instance.max_x.must_equal 8
-        instance.max_y.must_equal 8
+        instance.max_y.must_equal 4
       end
     end
   end
